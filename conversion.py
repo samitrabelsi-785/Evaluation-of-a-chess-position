@@ -26,28 +26,18 @@ def conversion1(piece : str):
             return -10
     return "NB"
 
-print(conversion1("k"))
-print(conversion1("B"))
-print(conversion1("5"))
 
-def conversionall(fen:str):
-    lignes :list[str] = fen.split("/")
-    print(lignes)
-    echequier : list[list[int]] = [[0 for _ in range(8)] for _ in range(8)]
-    chiffre : int = 0 #La ligne aux echecs
+def conversionall(fen: str):
+    lignes = fen.split("/")
+    echiquier = []
+
     for ligne in lignes:
-        lettre : int = 0 #La colonne aux echecs
-        for elem in ligne :
-            print("chiffre: ", chiffre)
-            print("lettre:", lettre)
+        for elem in ligne:
             convertion = conversion1(elem)
             if convertion == "NB":
-                lettre += int(elem)
+                # NB = nombre de cases vides
+                echiquier.extend([0] * int(elem))
             else:
-                echequier[chiffre][lettre] =  convertion
-                lettre += 1
-            print(echequier)
-        chiffre += 1
-    return echequier
+                echiquier.append(convertion)
 
-print(conversionall('4r1k1/p1p2pp1/1q1p3p/1P3P2/1P6/2n1Q3/PB4PP/4R1K1'))
+    return echiquier
